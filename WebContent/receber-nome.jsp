@@ -10,6 +10,10 @@
 </head>
 
 <body>
+<h1>receber-nome.jsp</h1>
+<strong>Recebendo parâmetro do forward: </strong>
+<%= request.getParameter("paramforward") %>
+<br>
 <%=	
 	/* String nome = "Nome recebido: " + request.getParameter("nome");
 	out.print(nome);  */
@@ -77,6 +81,12 @@
 <%= application.getInitParameter("Estado") %>
 <h1>Resgatando atributo de sessão, definido em index.jsp</h1>
 <%= "Valor do atributo de sessão curso: " + session.getAttribute("curso") %>
+<br>
+<!-- Essa será uma página que vai receber o erro de divisão por zero de index.jsp -->
+<strong>Recebendo exceção de divisão por zero de index.jsp: </strong>
+<%@ page isErrorPage="true" %>
+<%= exception %>
+
 </body>
 
 </html>

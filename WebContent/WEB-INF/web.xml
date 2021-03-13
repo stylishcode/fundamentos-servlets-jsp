@@ -9,4 +9,9 @@
   	<param-name>Estado</param-name>
   	<param-value>Pará</param-value>
   </context-param>
+  
+  <filter>
+  	<filter-name>ConexaoJDBC</filter-name>
+  	<filter-class>connection.SingleConnection</filter-class>
+  </filter>
 </web-app>

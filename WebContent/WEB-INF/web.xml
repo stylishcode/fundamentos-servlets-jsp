@@ -11,7 +11,9 @@
   </context-param>
   
   <filter>
-  	<filter-name>ConexaoJDBC</filter-name>
-  	<filter-class>connection.SingleConnection</filter-class>
+  <!-- Filtro responsável por interceptar todas as requisições do @WebFilter e 
+       também iniciar uma conexão com banco de dados -->
+  	<filter-name>filter</filter-name>
+  	<filter-class>filter.Filter</filter-class>
   </filter>
 </web-app>

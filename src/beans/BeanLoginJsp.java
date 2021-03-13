@@ -4,14 +4,6 @@ public class BeanLoginJsp {
 
 	private String login;
 	private String senha;
-	
-	
-	public boolean isLoginValido(String login, String senha) {
-		if (login.equalsIgnoreCase("admin") && senha.equals("admin")) {
-			return true;
-		}
-		return false;
-	}
 
 	public String getLogin() {
 		return login;

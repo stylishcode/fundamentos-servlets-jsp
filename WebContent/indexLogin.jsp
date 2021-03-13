@@ -13,7 +13,7 @@
 
 <body>
   
-  <!-- Tag JSTL de saída -->
+  <%-- <!-- Tag JSTL de saída -->
   <c:out value="${'Bem vindo ao JSTL'}" /><br>
   <!-- Tag JSTL de importação -->
   <c:import var="google_html" url="https://www.google.com.br" />
@@ -74,7 +74,7 @@
   <p />
   <p />
   <p />
-  <p />
+  <p /> --%>
 
   <form action="LoginServlet" method="post">
     <label for="login">Login</label>
@@ -82,7 +82,7 @@
     <br />
     
     <label for="senha">Senha</label>
-    <input type="text" id="senha" name="senha" placeholder="Digite sua senha" style="margin-bottom: 5px;">
+    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" style="margin-bottom: 5px;">
     <br />
     
     <input type="submit" value="Entrar">

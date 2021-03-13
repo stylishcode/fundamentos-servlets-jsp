@@ -22,7 +22,28 @@ public class UsuarioServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		try {
+			String acao = request.getParameter("acao");
+			String user = request.getParameter("user");
+
+			if (acao.equals("delete")) {
+				daoUsuario.delete(user);
+				/* Após deletar, redireciona o usuário novamente para a página de cadastro */
+				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
+				/*
+				 * Carrega a lista de usuários e colocar dentro da variável(atributo) usuarios
+				 * para poder ser exibido em tela
+				 */
+				request.setAttribute("usuarios", daoUsuario.listar());
+				/* Redireciona o usuário para a página especificada */
+				view.forward(request, response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -37,16 +58,17 @@ public class UsuarioServlet extends HttpServlet {
 
 		daoUsuario.salvar(usuario);
 
+		/* Após salvar, redireciona o usuário novamente para a página de cadastro */
 		try {
 			RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
 			/*
 			 * Carrega a lista de usuários e colocar dentro da variável(atributo) usuarios
-			 * para poder ser exibido tem tela
+			 * para poder ser exibido em tela
 			 */
 			request.setAttribute("usuarios", daoUsuario.listar());
 			/* Redireciona o usuário para a página especificada */
 			view.forward(request, response);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

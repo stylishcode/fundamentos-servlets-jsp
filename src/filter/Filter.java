@@ -47,7 +47,9 @@ public class Filter implements jakarta.servlet.Filter {
 			connection.commit();
 		} catch (Exception e) {
 			try {
+				e.printStackTrace();
 				connection.rollback();
+				
 			} catch (SQLException e1) {
 				e.printStackTrace();
 			}

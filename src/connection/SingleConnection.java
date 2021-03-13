@@ -26,7 +26,7 @@ public class SingleConnection {
 		try {
 			if (connection == null) {
 				/* Carrega a classe e registra no DriverManager */
-				Class.forName("org.postgresql.driver");
+ 				Class.forName("org.postgresql.Driver");
 				connection = DriverManager.getConnection(url, user, password);
 				/*
 				 * Se uma conexão estiver no modo de confirmação automática, todas as instruções

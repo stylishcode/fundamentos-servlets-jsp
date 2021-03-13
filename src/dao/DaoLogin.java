@@ -23,12 +23,11 @@ public class DaoLogin {
 		
 		ResultSet resultSet = statement.executeQuery();
 		
-		/* Se existir usuário com login e senha passados */
 		if (resultSet.next()) { 
-			return true;
+			return true; /* Possui usuário */
 		}
 		
-		/* Não encontrou usuário */
+		/* Não possui usuário */
 		return false;
 	}
 }

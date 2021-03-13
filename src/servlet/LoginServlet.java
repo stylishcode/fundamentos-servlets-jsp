@@ -2,7 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
-import beans.BeanLoginJsp;
+import dao.DaoLogin;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,6 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private DaoLogin daoLogin = new DaoLogin();
+
 	public LoginServlet() {
 		super();
 	}
@@ -28,20 +30,24 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BeanLoginJsp beanLoginJsp = new BeanLoginJsp();
-		
-		String login = request.getParameter("login");
-		String senha = request.getParameter("senha");
-		
-		if (beanLoginJsp.isLoginValido(login, senha)) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("acessoliberado.jsp");
-			dispatcher.forward(request, response);
+
+		try {
+			String login = request.getParameter("login");
+			String senha = request.getParameter("senha");
+
+			if (daoLogin.validarLogin(login, senha)) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("acessoliberado.jsp");
+				dispatcher.forward(request, response);
+
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("acessonegado.jsp");
+				dispatcher.forward(request, response);
+			}
 			
-		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("acessonegado.jsp");
-			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
+
 	}
 
 }

@@ -28,12 +28,19 @@
   <h1>Cadastro de usuário</h1>
   
   <form action="salvarUsuario" method="post" style="margin-bottom: 10px">
+  <label>Código: </label>
+    <input type="text" name="id" id="id" readonly="readonly" placeholder="Informe um id" value="${user.id}" 
+            style="margin-bottom: 10px">
+    <br />
+    
     <label>Login: </label>
-    <input type="text" name="login" id="login" placeholder="Informe um login" style="margin-bottom: 10px">
+    <input type="text" name="login" id="login" placeholder="Informe um login" value="${user.login}" 
+            style="margin-bottom: 10px">
     <br />
     
     <label>Senha: </label>
-    <input type="password" name="senha" id="senha" placeholder="Digite uma senha" style="margin-bottom: 10px">
+    <input type="password" name="senha" id="senha" placeholder="Digite uma senha" value="${user.senha}" 
+           style="margin-bottom: 10px">
     <br />
     
     <input type="submit" value="Salvar">
@@ -47,9 +54,11 @@
     <!-- usuarios é o atributo que vem com a lista de usuarios do UsuarioServlet -->
     <c:forEach items="${usuarios}" var="user">
       <tr>
+        <td><c:out value="${user.id}" /></td>
         <td><c:out value="${user.login}" /></td>
         <td><c:out value="${user.senha}" /></td>
-        <td><a href="salvarUsuario?acao=delete&user=${user.login}">Excluir</a></td>
+        <td><a href="salvarUsuario?acao=delete&user=${user.id}">Excluir</a></td>
+        <td><a href="salvarUsuario?acao=editar&user=${user.id}">Editar</a></td>
       </tr>
     </c:forEach>
   </table>

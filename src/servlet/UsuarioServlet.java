@@ -25,10 +25,10 @@ public class UsuarioServlet extends HttpServlet {
 
 		try {
 			String acao = request.getParameter("acao");
-			String user = request.getParameter("user");
+			String user = request.getParameter("user"); /* id do usuário (user.id)*/
 
 			if (acao.equals("delete")) {
-				daoUsuario.delete(user);
+				daoUsuario.delete(Long.parseLong(user)); /* converte o parâmetro String user.id para Long user.id */
 				/* Após deletar, redireciona o usuário novamente para a página de cadastro */
 				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
 				/*
@@ -36,6 +36,19 @@ public class UsuarioServlet extends HttpServlet {
 				 * para poder ser exibido em tela
 				 */
 				request.setAttribute("usuarios", daoUsuario.listar());
+				/* Redireciona o usuário para a página especificada */
+				view.forward(request, response);
+			}
+			
+			if (acao.equals("editar")) {
+				BeanLoginJsp usuario = daoUsuario.consultar(Long.parseLong(user)); /* converte user.id para Long */
+				/* Após editar, redireciona o usuário novamente para a página de cadastro */
+				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
+				/*
+				 * Carrega o usuário que foi consultado e coloca dentro da variável(atributo) user
+				 * para poder ser exibido em tela
+				 */
+				request.setAttribute("user", usuario);
 				/* Redireciona o usuário para a página especificada */
 				view.forward(request, response);
 			}
@@ -48,15 +61,22 @@ public class UsuarioServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		String id = request.getParameter("id");
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 
 		BeanLoginJsp usuario = new BeanLoginJsp();
+		usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
 		usuario.setLogin(login);
 		usuario.setSenha(senha);
+		
+		if (id == null || id.isEmpty()) {			
+			daoUsuario.salvar(usuario);
+		} else {
+			daoUsuario.atualizar(usuario);
+		}
 
-		daoUsuario.salvar(usuario);
 
 		/* Após salvar, redireciona o usuário novamente para a página de cadastro */
 		try {

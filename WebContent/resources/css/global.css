@@ -1,0 +1,23 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Roboto:300");
+
+* {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	border: 0;
+	box-sizing: border-box;
+	font: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	font-family: "Roboto", sans-serif;
+}

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <!-- Incluir tags jsp customizadas -->
-<%@ taglib prefix="minhatag-prefixo" uri="WEB-INF/testeTag.tld"%>
+<%-- <%@ taglib prefix="minhatag-prefixo" uri="WEB-INF/testeTag.tld"%> --%>
 
 <html>
 

@@ -10,46 +10,33 @@
 <head>
   <meta charset="UTF-8">
   <title>Cadastro de usuário</title>
-  
-  <style type="text/css">
-    table {
-      width: 300px;
-    }
-    
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-    }
-    
-  </style>
+  <link rel="stylesheet" type="text/css" href="resources/css/global.css">
+  <link rel="stylesheet" type="text/css" href="resources/css/cadastro.css">
 </head>
 
 <body>
+
   <h1>Cadastro de usuário</h1>
   
-  <form action="salvarUsuario" method="post" style="margin-bottom: 10px">
-  <label>Código: </label>
-    <input type="text" name="id" id="id" readonly="readonly" placeholder="Informe um id" value="${user.id}" 
-            style="margin-bottom: 10px">
-    <br />
+  <form action="salvarUsuario" method="post">
+    <input type="text" name="id" id="id" readonly="readonly" placeholder="Gerado automaticamente" value="${user.id}"
+    	   class="hidden-input-id">
     
-    <label>Login: </label>
-    <input type="text" name="login" id="login" placeholder="Informe um login" value="${user.login}" 
-            style="margin-bottom: 10px">
-    <br />
+    <label>Login <span>*</span></label>
+    <input type="text" name="login" id="login" placeholder="Informe um login" value="${user.login}">
     
-    <label>Senha: </label>
-    <input type="password" name="senha" id="senha" placeholder="Digite uma senha" value="${user.senha}" 
-           style="margin-bottom: 10px">
-    <br />
+    <label>Senha <span>*</span></label>
+    <input type="password" name="senha" id="senha" placeholder="Digite uma senha" value="${user.senha}">
     
-    <input type="submit" value="Salvar">
+    <button type="submit">Salvar</button>
   </form>
  
   <table>
     <tr>
+      <th>Código</th>
       <th>Login</th>
       <th>Senha</th>
+      <th colspan="2">Opções</th>
     </tr>
     <!-- usuarios é o atributo que vem com a lista de usuarios do UsuarioServlet -->
     <c:forEach items="${usuarios}" var="user">

@@ -9,6 +9,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Login | JSP</title>
+  <link rel="stylesheet" type="text/css" href="resources/css/global.css">
+  <link rel="stylesheet" type="text/css" href="resources/css/login.css">
 </head>
 
 <body>
@@ -77,15 +79,9 @@
   <p /> --%>
 
   <form action="LoginServlet" method="post">
-    <label for="login">Login</label>
-    <input type="text" id="login" name="login" placeholder="Digite seu login" style="margin-bottom: 5px;">
-    <br />
-    
-    <label for="senha">Senha</label>
-    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" style="margin-bottom: 5px;">
-    <br />
-    
-    <input type="submit" value="Entrar">
+    <input type="text" id="login" name="login" placeholder="Login"">
+    <input type="password" id="senha" name="senha" placeholder="Senha"">
+    <button type="submit">Entrar</button>
   </form>
   
 </body>

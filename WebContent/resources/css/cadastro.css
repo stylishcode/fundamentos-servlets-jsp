@@ -1,14 +1,19 @@
 body {
 	display: flex;
-	flex-direction: column;
+	justify-content: space-around;
 }
 
-form {
+fieldset {
 	display: flex;
 	flex-direction: column;
 	width: 400px;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	padding: 1.25rem 0.75rem 0.62rem 1.25rem;
+}
+
+fieldset legend {
+	font-weight: 700;
+	font-size: 2rem;
 }
 
 form label {
@@ -52,18 +57,4 @@ form button {
 form button:hover {
 	background-color: #4691a4;
 	box-shadow: none;
-}
-
-table {
-	width: 400px;
-}
-
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-}
-
-th {
-	background-color: #4caf50;
-	color: #ffffff;
 }

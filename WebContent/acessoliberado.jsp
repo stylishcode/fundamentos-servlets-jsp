@@ -9,7 +9,8 @@
 
 <body>
   <h2>Seja bem vindo ao sistema em JSP</h2>
-  <a href="cadastroUsuario.jsp">Cadastro de usuários</a>
+  <!-- Ao clicar, ele manda o parametro listartodos que carrega a lista de usuários -->
+  <a href="salvarUsuario?acao=listartodos">Cadastro de usuários</a>
 </body>
 
 </html>

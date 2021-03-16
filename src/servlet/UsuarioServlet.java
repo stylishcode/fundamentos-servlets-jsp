@@ -26,6 +26,15 @@ public class UsuarioServlet extends HttpServlet {
 		try {
 			String acao = request.getParameter("acao");
 			String user = request.getParameter("user"); /* id do usuário (user.id)*/
+			
+			if (acao.equals("listartodos")) {
+			    /* Carrega a lista de usuários sempre que for redirecionado 
+			     * para a página de cadastro, onde tem a lista de usuários
+			     * */
+			    RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
+			    request.setAttribute("usuarios", daoUsuario.listar());
+			    view.forward(request, response);
+			}
 
 			if (acao.equals("delete")) {
 				daoUsuario.delete(Long.parseLong(user)); /* converte o parâmetro String user.id para Long user.id */
@@ -63,11 +72,13 @@ public class UsuarioServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		String id = request.getParameter("id");
+		String nome = request.getParameter("nome");
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 
 		BeanLoginJsp usuario = new BeanLoginJsp();
 		usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
+		usuario.setNome(nome);
 		usuario.setLogin(login);
 		usuario.setSenha(senha);
 		

@@ -34,8 +34,11 @@
             <label>Senha <span>*</span> </label> 
             <input type="password" name="senha" id="senha"placeholder="Digite uma senha" 
                    value="${user.senha}">
-    
-            <button type="submit">Salvar</button>
+            
+            <div>
+                <button type="submit">Salvar</button>
+                <button type="submit" onclick="cancelar()">Cancelar</button>
+            </div>
         </fieldset>
     </form>
 
@@ -62,5 +65,11 @@
             </c:forEach>
         </tbody>
   </table>
+  
+  <script type="text/javascript">
+      function cancelar() {
+    	  document.querySelector("form").action = "salvarUsuario?acao=reset";
+      }
+  </script>
 </body>
 </html>

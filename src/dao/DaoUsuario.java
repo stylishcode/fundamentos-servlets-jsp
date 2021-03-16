@@ -20,11 +20,12 @@ public class DaoUsuario {
 
 	public void salvar(BeanLoginJsp usuario) {
 		try {
-			String sql = "INSERT INTO usuario (login,senha) VALUES (?,?)";
+			String sql = "INSERT INTO usuario (nome,login,senha) VALUES (?,?,?)";
 
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, usuario.getLogin());
-			statement.setString(2, usuario.getSenha());
+			statement.setString(1, usuario.getNome());
+			statement.setString(2, usuario.getLogin());
+			statement.setString(3, usuario.getSenha());
 			statement.execute();
 			/* Se tudo estiver certo, ele executa a transação de salvar no banco */
 			connection.commit();
@@ -53,6 +54,7 @@ public class DaoUsuario {
 			BeanLoginJsp usuario = new BeanLoginJsp();
 			
 			usuario.setId(resultSet.getLong("id"));
+			usuario.setNome(resultSet.getString("nome"));
 			usuario.setLogin(resultSet.getString("login"));
 			usuario.setSenha(resultSet.getString("senha"));
 
@@ -96,6 +98,7 @@ public class DaoUsuario {
 		if (resultSet.next()) {
 			BeanLoginJsp usuario = new BeanLoginJsp();
 			usuario.setId(resultSet.getLong("id"));
+			usuario.setNome(resultSet.getString("nome"));
 			usuario.setLogin(resultSet.getString("login"));
 			usuario.setSenha(resultSet.getString("senha"));
 			/*Retorna o usuário encontrado*/
@@ -109,12 +112,13 @@ public class DaoUsuario {
 	
 	public void atualizar(BeanLoginJsp usuario) {
 		try {
-			String sql = "UPDATE usuario SET login = ?, senha = ? WHERE id = ?";
+			String sql = "UPDATE usuario SET nome = ?, login = ?, senha = ? WHERE id = ?";
 			
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, usuario.getLogin());
-			statement.setString(2, usuario.getSenha());
-			statement.setLong(3, usuario.getId());
+			statement.setString(1, usuario.getNome());
+			statement.setString(2, usuario.getLogin());
+			statement.setString(3, usuario.getSenha());
+			statement.setLong(4, usuario.getId());
 			/* Se tudo estiver certo, executa a transação de atualizar no banco */
 			statement.executeUpdate();
 			connection.commit();

@@ -13,96 +13,93 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/salvarUsuario")
 public class UsuarioServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private DaoUsuario daoUsuario = new DaoUsuario();
+    private DaoUsuario daoUsuario = new DaoUsuario();
 
-	public UsuarioServlet() {
-	}
+    public UsuarioServlet() {
+    }
+    
+    private void carregarListaUsuarios(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            /* Define um redirecionamento de pagina */
+            RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
+            /*Define um atributo usuarios que contem a lista de usuários carregada*/
+            request.setAttribute("usuarios", daoUsuario.listar());
+            /*Redireciona para a página definida*/
+            view.forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		try {
-			String acao = request.getParameter("acao");
-			String user = request.getParameter("user"); /* id do usuário (user.id)*/
-			
-			if (acao.equals("listartodos")) {
-			    /* Carrega a lista de usuários sempre que for redirecionado 
-			     * para a página de cadastro, onde tem a lista de usuários
-			     * */
-			    RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
-			    request.setAttribute("usuarios", daoUsuario.listar());
-			    view.forward(request, response);
-			}
+        try {
+            String acao = request.getParameter("acao");
+            String user = request.getParameter("user"); /* id do usuário (user.id) */
 
-			if (acao.equals("delete")) {
-				daoUsuario.delete(Long.parseLong(user)); /* converte o parâmetro String user.id para Long user.id */
-				/* Após deletar, redireciona o usuário novamente para a página de cadastro */
-				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
-				/*
-				 * Carrega a lista de usuários e colocar dentro da variável(atributo) usuarios
-				 * para poder ser exibido em tela
-				 */
-				request.setAttribute("usuarios", daoUsuario.listar());
-				/* Redireciona o usuário para a página especificada */
-				view.forward(request, response);
-			}
-			
-			if (acao.equals("editar")) {
-				BeanLoginJsp usuario = daoUsuario.consultar(Long.parseLong(user)); /* converte user.id para Long */
-				/* Após editar, redireciona o usuário novamente para a página de cadastro */
-				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
-				/*
-				 * Carrega o usuário que foi consultado e coloca dentro da variável(atributo) user
-				 * para poder ser exibido em tela
-				 */
-				request.setAttribute("user", usuario);
-				/* Redireciona o usuário para a página especificada */
-				view.forward(request, response);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+            if (acao.equalsIgnoreCase("listartodos")) {
+                carregarListaUsuarios(request, response);
+            }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		String id = request.getParameter("id");
-		String nome = request.getParameter("nome");
-		String login = request.getParameter("login");
-		String senha = request.getParameter("senha");
+            if (acao.equalsIgnoreCase("delete")) {
+                daoUsuario.delete(Long.parseLong(user)); /* converte o parâmetro String user.id para Long user.id */
+                carregarListaUsuarios(request, response);
+            }
 
-		BeanLoginJsp usuario = new BeanLoginJsp();
-		usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
-		usuario.setNome(nome);
-		usuario.setLogin(login);
-		usuario.setSenha(senha);
-		
-		if (id == null || id.isEmpty()) {			
-			daoUsuario.salvar(usuario);
-		} else {
-			daoUsuario.atualizar(usuario);
-		}
+            if (acao.equalsIgnoreCase("editar")) {
+                BeanLoginJsp usuario = daoUsuario.consultar(Long.parseLong(user)); /* converte user.id para Long */
+                /* Após editar, redireciona o usuário novamente para a página de cadastro */
+                RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
+                /*
+                 * Carrega o usuário que foi consultado e coloca dentro da variável(atributo)
+                 * user para poder ser exibido em tela
+                 */
+                request.setAttribute("user", usuario);
+                /* Redireciona o usuário para a página especificada */
+                view.forward(request, response);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
 
-		/* Após salvar, redireciona o usuário novamente para a página de cadastro */
-		try {
-			RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
-			/*
-			 * Carrega a lista de usuários e colocar dentro da variável(atributo) usuarios
-			 * para poder ser exibido em tela
-			 */
-			request.setAttribute("usuarios", daoUsuario.listar());
-			/* Redireciona o usuário para a página especificada */
-			view.forward(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        String acao = request.getParameter("acao");
+
+        /*
+         * Caso o usuário cancele edição ou cadastro, ele é redirecionado para a pagina
+         * de cadastro novamente e a lista de usuários é carregada
+         */
+        if (acao != null && acao.equalsIgnoreCase("reset")) {
+            carregarListaUsuarios(request, response);
+        }
+
+        String id = request.getParameter("id");
+        String nome = request.getParameter("nome");
+        String login = request.getParameter("login");
+        String senha = request.getParameter("senha");
+
+        BeanLoginJsp usuario = new BeanLoginJsp();
+        usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
+        usuario.setNome(nome);
+        usuario.setLogin(login);
+        usuario.setSenha(senha);
+
+        if (id == null || id.isEmpty() && daoUsuario.isExisteLogin(login)) {
+            daoUsuario.salvar(usuario);
+            
+        } else if (id != null && !id.isEmpty()) {
+            daoUsuario.atualizar(usuario);
+        }
+        
+       carregarListaUsuarios(request, response);
+    }
 
 }

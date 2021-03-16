@@ -110,6 +110,25 @@ public class DaoUsuario {
 		return null;
 	}
 	
+	public boolean isExisteLogin(String login) {
+	    try {
+	        String sql = "SELECT COUNT(1) AS qtd FROM usuario WHERE login = ?";
+	        
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        statement.setString(1, login);
+	        ResultSet resultSet = statement.executeQuery();
+	        
+	        if (resultSet.next()) { /*Se existir usuário com esse login passado*/
+	            return resultSet.getInt("qtd") <= 0;
+	        }
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+        }
+	    
+	    return false;
+	}
+	
 	public void atualizar(BeanLoginJsp usuario) {
 		try {
 			String sql = "UPDATE usuario SET nome = ?, login = ?, senha = ? WHERE id = ?";

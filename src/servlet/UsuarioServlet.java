@@ -91,11 +91,17 @@ public class UsuarioServlet extends HttpServlet {
         usuario.setNome(nome);
         usuario.setLogin(login);
         usuario.setSenha(senha);
-
+        
         if (id == null || id.isEmpty() && daoUsuario.isExisteLogin(login)) {
+            request.setAttribute("msg", "Usuário já existe com o mesmo login");
+        }
+
+        if (id == null || id.isEmpty() && !daoUsuario.isExisteLogin(login)) {
             daoUsuario.salvar(usuario);
             
-        } else if (id != null && !id.isEmpty()) {
+        } 
+        
+        if (id != null && !id.isEmpty()) {
             daoUsuario.atualizar(usuario);
         }
         

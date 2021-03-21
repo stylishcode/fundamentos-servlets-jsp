@@ -56,6 +56,7 @@ public class DaoUsuario {
 			
 			usuario.setId(resultSet.getLong("id"));
 			usuario.setNome(resultSet.getString("nome"));
+			usuario.setTelefone(resultSet.getString("telefone"));
 			usuario.setLogin(resultSet.getString("login"));
 			usuario.setSenha(resultSet.getString("senha"));
 

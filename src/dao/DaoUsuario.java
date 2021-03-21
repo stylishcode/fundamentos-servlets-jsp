@@ -20,12 +20,13 @@ public class DaoUsuario {
 
 	public void salvar(UsuarioBean usuario) {
 		try {
-			String sql = "INSERT INTO usuario (nome,login,senha) VALUES (?,?,?)";
+			String sql = "INSERT INTO usuario (nome,telefone,login,senha) VALUES (?,?,?,?)";
 
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, usuario.getNome());
 			statement.setString(2, usuario.getLogin());
-			statement.setString(3, usuario.getSenha());
+			statement.setString(3, usuario.getTelefone());
+			statement.setString(4, usuario.getSenha());
 			statement.execute();
 			/* Se tudo estiver certo, ele executa a transação de salvar no banco */
 			connection.commit();

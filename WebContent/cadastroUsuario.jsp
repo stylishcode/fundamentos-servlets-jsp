@@ -55,6 +55,7 @@
                 <th>Código</th>
                 <th>Login</th>
                 <th>Nome</th>
+                <th>Telefone</th>
                 <th colspan="2">Opções</th>
             </tr>
         <thead>
@@ -64,6 +65,7 @@
               <tr>
                 <td><c:out value="${user.id}" /></td>
                 <td><c:out value="${user.nome}" /></td>
+                <td><c:out value="${user.telefone}" /></td>
                 <td><c:out value="${user.login}" /></td>
                 <td><a href="salvarUsuario?acao=editar&user=${user.id}">Editar</a></td>
                 <td><a href="salvarUsuario?acao=delete&user=${user.id}">Excluir</a></td>

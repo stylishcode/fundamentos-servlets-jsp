@@ -20,6 +20,8 @@
         <fieldset>
             <legend>Cadastro de usuários</legend>
             
+            <h3 style="margin-bottom: 0.35rem; color: orange">${msg}</h3>
+            
             <input type="text" name="id" id="id" readonly="readonly" placeholder="Gerado automaticamente" 
                    value="${user.id}" class="hidden-input-id"> 
                    

@@ -27,15 +27,15 @@
                    
             <label>Nome <span>*</span></label>
             <input type="text" name="nome" id="nome" placeholder="Nome" 
-                   value="${user.nome}">
+                   value="${user.nome}" required>
         
             <label>Login <span>*</span></label>
             <input type="text" name="login" id="login" placeholder="Informe um login" 
-                   value="${user.login}">
+                   value="${user.login}" required>
         
             <label>Senha <span>*</span> </label> 
             <input type="password" name="senha" id="senha"placeholder="Digite uma senha" 
-                   value="${user.senha}">
+                   value="${user.senha}" required>
             
             <div>
                 <button type="submit">Salvar</button>

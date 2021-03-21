@@ -28,6 +28,10 @@
             <label>Nome <span>*</span></label>
             <input type="text" name="nome" id="nome" placeholder="Nome" 
                    value="${user.nome}" required>
+                   
+            <label>Telefone <span>*</span></label>
+            <input type="tel" name="telefone" id="telefone" placeholder="Telefone" 
+                   value="${user.telefone}" pattern="(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})" required>
         
             <label>Login <span>*</span></label>
             <input type="text" name="login" id="login" placeholder="Informe um login" 

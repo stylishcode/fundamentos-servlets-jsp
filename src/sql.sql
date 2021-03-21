@@ -13,6 +13,7 @@ create database "curso-jsp"
 create table usuario (
   id bigint primary key,
   nome character varying(255),
+  telefone character varying(255),
   login character varying(255),
   senha character varying(255)
 );

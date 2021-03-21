@@ -118,15 +118,15 @@ public class DaoUsuario {
 	        statement.setString(1, login);
 	        ResultSet resultSet = statement.executeQuery();
 	        
-	        if (resultSet.next()) { /*Se existir usuário com esse login passado*/
-	            return resultSet.getInt("qtd") <= 0;
+	        if (resultSet.next()) {
+	            return resultSet.getInt("qtd") > 0;
 	        }
 	        
 	    } catch (Exception e) {
 	        e.printStackTrace();
         }
 	    
-	    return false;
+	    return false; //Retorno padrão
 	}
 	
 	public void atualizar(BeanLoginJsp usuario) {

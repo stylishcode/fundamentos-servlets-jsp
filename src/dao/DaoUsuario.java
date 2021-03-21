@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import beans.BeanLoginJsp;
+import beans.UsuarioBean;
 import connection.SingleConnection;
 
 public class DaoUsuario {
@@ -18,7 +18,7 @@ public class DaoUsuario {
 		connection = SingleConnection.getConnection();
 	}
 
-	public void salvar(BeanLoginJsp usuario) {
+	public void salvar(UsuarioBean usuario) {
 		try {
 			String sql = "INSERT INTO usuario (nome,login,senha) VALUES (?,?,?)";
 
@@ -41,8 +41,8 @@ public class DaoUsuario {
 		}
 	}
 
-	public List<BeanLoginJsp> listar() throws Exception {
-		List<BeanLoginJsp> usuarios = new ArrayList<BeanLoginJsp>();
+	public List<UsuarioBean> listar() throws Exception {
+		List<UsuarioBean> usuarios = new ArrayList<UsuarioBean>();
 
 		String sql = "SELECT * from usuario";
 
@@ -51,7 +51,7 @@ public class DaoUsuario {
 		ResultSet resultSet = statement.executeQuery();
 
 		while (resultSet.next()) {
-			BeanLoginJsp usuario = new BeanLoginJsp();
+			UsuarioBean usuario = new UsuarioBean();
 			
 			usuario.setId(resultSet.getLong("id"));
 			usuario.setNome(resultSet.getString("nome"));
@@ -86,7 +86,7 @@ public class DaoUsuario {
 		
 	}
 	
-	public BeanLoginJsp consultar(Long id) throws SQLException {
+	public UsuarioBean consultar(Long id) throws SQLException {
 		
 		String sql = "SELECT * FROM usuario WHERE id = ?";
 		
@@ -96,7 +96,7 @@ public class DaoUsuario {
 		ResultSet resultSet = statement.executeQuery();
 		
 		if (resultSet.next()) {
-			BeanLoginJsp usuario = new BeanLoginJsp();
+			UsuarioBean usuario = new UsuarioBean();
 			usuario.setId(resultSet.getLong("id"));
 			usuario.setNome(resultSet.getString("nome"));
 			usuario.setLogin(resultSet.getString("login"));
@@ -129,7 +129,7 @@ public class DaoUsuario {
 	    return false; //Retorno padrão
 	}
 	
-	public void atualizar(BeanLoginJsp usuario) {
+	public void atualizar(UsuarioBean usuario) {
 		try {
 			String sql = "UPDATE usuario SET nome = ?, login = ?, senha = ? WHERE id = ?";
 			

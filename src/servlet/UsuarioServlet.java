@@ -2,7 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
-import beans.BeanLoginJsp;
+import beans.UsuarioBean;
 import dao.DaoUsuario;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -50,7 +50,7 @@ public class UsuarioServlet extends HttpServlet {
             }
 
             if (acao.equalsIgnoreCase("editar")) {
-                BeanLoginJsp usuario = daoUsuario.consultar(Long.parseLong(user)); /* converte user.id para Long */
+                UsuarioBean usuario = daoUsuario.consultar(Long.parseLong(user)); /* converte user.id para Long */
                 /* Após editar, redireciona o usuário novamente para a página de cadastro */
                 RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
                 /*
@@ -86,7 +86,7 @@ public class UsuarioServlet extends HttpServlet {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
 
-        BeanLoginJsp usuario = new BeanLoginJsp();
+        UsuarioBean usuario = new UsuarioBean();
         usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
         usuario.setNome(nome);
         usuario.setLogin(login);

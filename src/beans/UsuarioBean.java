@@ -1,6 +1,6 @@
 package beans;
 
-public class BeanLoginJsp {
+public class UsuarioBean {
 
     private Long id;
     private String nome;

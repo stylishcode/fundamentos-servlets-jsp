@@ -134,13 +134,14 @@ public class DaoUsuario {
 	
 	public void atualizar(UsuarioBean usuario) {
 		try {
-			String sql = "UPDATE usuario SET nome = ?, login = ?, senha = ? WHERE id = ?";
+			String sql = "UPDATE usuario SET nome = ?, telefone = ?, login = ?, senha = ? WHERE id = ?";
 			
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, usuario.getNome());
 			statement.setString(2, usuario.getLogin());
-			statement.setString(3, usuario.getSenha());
-			statement.setLong(4, usuario.getId());
+			statement.setString(3, usuario.getTelefone());
+			statement.setString(4, usuario.getSenha());
+			statement.setLong(5, usuario.getId());
 			/* Se tudo estiver certo, executa a transação de atualizar no banco */
 			statement.executeUpdate();
 			connection.commit();

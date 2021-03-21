@@ -101,6 +101,7 @@ public class DaoUsuario {
 			UsuarioBean usuario = new UsuarioBean();
 			usuario.setId(resultSet.getLong("id"));
 			usuario.setNome(resultSet.getString("nome"));
+			usuario.setTelefone(resultSet.getString("telefone"));
 			usuario.setLogin(resultSet.getString("login"));
 			usuario.setSenha(resultSet.getString("senha"));
 			/*Retorna o usuário encontrado*/

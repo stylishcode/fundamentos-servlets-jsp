@@ -1,10 +1,11 @@
 table {
+	flex-direction: column;
 	color: rgba(94, 93, 82, 1);
 	font-family: helvetica, sans-serif;
 	border-spacing: 0;
 }
 
-a {
+table tbody a {
 	color: #ffffff;
 }
 

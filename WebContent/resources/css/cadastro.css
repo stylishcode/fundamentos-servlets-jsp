@@ -58,3 +58,8 @@ form button:hover {
 	background-color: #4691a4;
 	box-shadow: none;
 }
+
+.container-table {
+	display: flex;
+	justify-content: space-between;
+}

@@ -6,7 +6,7 @@ public class Produto {
 
     private Long id;
     private String nome;
-    private int quantidade;
+    private Integer quantidade;
     private BigDecimal valor;
 
     public Long getId() {
@@ -25,11 +25,11 @@ public class Produto {
         this.nome = nome;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 

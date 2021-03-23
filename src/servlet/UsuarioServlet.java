@@ -86,25 +86,55 @@ public class UsuarioServlet extends HttpServlet {
         String telefone = request.getParameter("telefone");
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
+        String ibge = request.getParameter("ibge");
+        String cep = request.getParameter("cep");
+        String rua = request.getParameter("rua");
+        String bairro = request.getParameter("bairro");
+        String cidade = request.getParameter("cidade");
+        String estado = request.getParameter("estado");
 
         UsuarioBean usuario = new UsuarioBean();
-        usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
+        usuario.setId(!id.isEmpty() ? Long.parseLong(id) : null);
         usuario.setNome(nome);
         usuario.setTelefone(telefone);
         usuario.setLogin(login);
         usuario.setSenha(senha);
+        usuario.setIbge(ibge);
+        usuario.setCep(cep);
+        usuario.setRua(rua);
+        usuario.setBairro(bairro);
+        usuario.setCidade(cidade);
+        usuario.setEstado(estado);
         
-        if (id == null || id.isEmpty() && daoUsuario.isExisteLogin(login)) {
-            request.setAttribute("msg", "Usuário já existe com o mesmo login");
-        }
-
-        if (id == null || id.isEmpty() && !daoUsuario.isExisteLogin(login)) {
+        String msg = null;
+        boolean podeInserir = true;
+        
+        if (id == null || id.isEmpty() && !daoUsuario.isExisteLogin(login) && podeInserir) {
             daoUsuario.salvar(usuario);
             
         } 
         
-        if (id != null && !id.isEmpty()) {
-            daoUsuario.atualizar(usuario);
+        if (id == null || id.isEmpty() && daoUsuario.isExisteLogin(login)) {
+            msg = "Usuário já existe com o mesmo login";
+            podeInserir = false;
+        }
+        
+        if (id != null && !id.isEmpty() && podeInserir) {
+            if (daoUsuario.isExisteLoginOnUpdate(login, Long.parseLong(id))) {
+                msg = "Login já existe para outro usuário";
+                podeInserir = false;
+            } else {
+                daoUsuario.atualizar(usuario);
+            }
+        }
+        
+        if (msg != null) {
+            request.setAttribute("msg", msg);
+        }
+
+        /*Mantém os dados do usuários no formulário (recarrega) após algum erro de validação*/
+        if (!podeInserir) { 
+            request.setAttribute("user", usuario);
         }
         
        carregarListaUsuarios(request, response);

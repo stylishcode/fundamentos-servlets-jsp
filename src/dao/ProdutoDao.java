@@ -63,5 +63,61 @@ public class ProdutoDao {
         return produtos;
     }
     
+    public void atualizar(Produto produto) {
+        try {
+            String sql = "UPDATE produto SET nome = ?, quantidade = ?, valor = ? WHERE id = ?";
+            
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, produto.getNome());
+            pst.setInt(2, produto.getQuantidade());
+            pst.setBigDecimal(3, produto.getValor());
+            pst.setLong(4, produto.getId());
+            pst.executeUpdate();
+            connection.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void delete(Long id) {
+        try {
+            String sql = "DELETE FROM produto WHERE id = ?";
+            
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setLong(1, id);
+            pst.execute();
+            connection.commit();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+    
+    public Produto consultar(Long id) throws SQLException {
+        String sql = "SELECT * FROM produto WHERE id = ?";
+        
+        PreparedStatement pst = connection.prepareStatement(sql);
+        pst.setLong(1, id);
+        
+        ResultSet resultSet = pst.executeQuery();
+        
+        while (resultSet.next()) {
+            Produto produto = new Produto();
+            produto.setId(resultSet.getLong("id"));
+            produto.setNome(resultSet.getString("nome"));
+            produto.setQuantidade(resultSet.getInt("quantidade"));
+            produto.setValor(resultSet.getBigDecimal("valor"));
+            
+            return produto;
+        }
+        
+        resultSet.close();
+        return null;
+    }
     
 }

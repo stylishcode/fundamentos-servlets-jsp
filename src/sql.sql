@@ -15,7 +15,13 @@ create table usuario (
   nome character varying(255),
   telefone character varying(255),
   login character varying(255),
-  senha character varying(255)
+  senha character varying(255),
+  ibge character varying(255),
+  cep character varying(255),
+  rua character varying(255),
+  bairro character varying(255),
+  cidade character varying(255),
+  estado character varying(255)
 );
 
 -- sequence for autoincrement id (there are three commands. Run ony by one)

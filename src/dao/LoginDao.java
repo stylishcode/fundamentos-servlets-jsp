@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 
 import connection.SingleConnection;
 
-public class DaoLogin {
+public class LoginDao {
 	
 	private Connection connection;
 	
-	public DaoLogin() {
+	public LoginDao() {
 		connection = SingleConnection.getConnection();
 	}
 	

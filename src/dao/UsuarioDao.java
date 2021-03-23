@@ -10,11 +10,11 @@ import java.util.List;
 import beans.UsuarioBean;
 import connection.SingleConnection;
 
-public class DaoUsuario {
+public class UsuarioDao {
 
     private Connection connection;
 
-    public DaoUsuario() {
+    public UsuarioDao() {
         connection = SingleConnection.getConnection();
     }
 

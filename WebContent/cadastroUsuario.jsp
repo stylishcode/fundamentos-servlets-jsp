@@ -31,15 +31,39 @@
                    
             <label>Telefone <span>*</span></label>
             <input type="tel" name="telefone" id="telefone" placeholder="Telefone" 
-                   value="${user.telefone}" pattern="(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})" required>
+                   value="${user.telefone}" required>
         
             <label>Login <span>*</span></label>
             <input type="text" name="login" id="login" placeholder="Informe um login" 
                    value="${user.login}" required>
         
             <label>Senha <span>*</span> </label> 
-            <input type="password" name="senha" id="senha"placeholder="Digite uma senha" 
+            <input type="password" name="senha" id="senha" placeholder="Digite uma senha" 
                    value="${user.senha}" required>
+                   
+            <label>IBGE <span>*</span> </label> 
+            <input type="text" name="ibge" id="ibge" placeholder="Informe o IBGE" 
+                   value="${user.ibge}" required>
+            
+            <label>CEP <span>*</span> </label> 
+            <input type="text" name="cep" id="cep" placeholder="Informe o CEP" 
+                   value="${user.cep}" required>
+                   
+            <label>Rua <span>*</span> </label> 
+            <input type="text" name="rua" id="rua" placeholder="Informe a Rua" 
+                   value="${user.rua}" required>
+                   
+            <label>Bairro <span>*</span> </label> 
+            <input type="text" name="bairro" id="bairro" placeholder="Informe o bairro" 
+                   value="${user.bairro}" required>
+                   
+            <label>Cidade <span>*</span> </label> 
+            <input type="text" name="cidade" id="cidade" placeholder="Informe a cidade" 
+                   value="${user.cidade}" required>
+            
+            <label>Estado <span>*</span> </label> 
+            <input type="text" name="estado" id="estado" placeholder="Informe o estado" 
+                   value="${user.estado}" required>     
             
             <div>
                 <button type="submit">Salvar</button>
@@ -47,33 +71,61 @@
             </div>
         </fieldset>
     </form>
-
-    <table>
-        <caption>Lista de usuários</caption>
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Login</th>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th colspan="2">Opções</th>
-            </tr>
-        <thead>
-        <tbody>
-            <!-- usuarios é o atributo que vem com a lista de usuarios do UsuarioServlet -->
-            <c:forEach items="${usuarios}" var="user">
-              <tr>
-                <td><c:out value="${user.id}" /></td>
-                <td><c:out value="${user.nome}" /></td>
-                <td><c:out value="${user.telefone}" /></td>
-                <td><c:out value="${user.login}" /></td>
-                <td><a href="salvarUsuario?acao=editar&user=${user.id}">Editar</a></td>
-                <td><a href="salvarUsuario?acao=delete&user=${user.id}">Excluir</a></td>
-              </tr>
-            </c:forEach>
-        </tbody>
-  </table>
-  
+    
+    <div class="container-table">
+        <div style="position: absolute; left: 1240px; bottom: 630px">
+            <a style="padding:0.94rem 0.5rem;background:#4b99ad;color: #ffffff;cursor: pointer; margin-right: 0.5rem" 
+               href="acessoliberado.jsp"
+            >
+                Início
+            </a>
+               
+            <a style="padding:0.94rem 0.5rem;background:#4b99ad;color: #ffffff;cursor: pointer;" 
+               href="indexLogin.jsp"
+            >
+                Sair
+            </a>
+        </div>
+        
+        <table>
+            <caption>Lista de usuários</caption>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Login</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>IBGE</th>
+                    <th>CEP</th>
+                    <th>Rua</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
+                    <th colspan="2">Opções</th>
+                </tr>
+            <thead>
+            <tbody>
+                <!-- usuarios é o atributo que vem com a lista de usuarios do UsuarioServlet -->
+                <c:forEach items="${usuarios}" var="user">
+                  <tr>
+                    <td><c:out value="${user.id}" /></td>
+                    <td><c:out value="${user.nome}" /></td>
+                    <td><c:out value="${user.telefone}" /></td>
+                    <td><c:out value="${user.login}" /></td>
+                    <td><c:out value="${user.ibge}" /></td>
+                    <td><c:out value="${user.cep}" /></td>
+                    <td><c:out value="${user.rua}" /></td>
+                    <td><c:out value="${user.bairro}" /></td>
+                    <td><c:out value="${user.cidade}" /></td>
+                    <td><c:out value="${user.estado}" /></td>
+                    <td><a href="salvarUsuario?acao=editar&user=${user.id}">Editar</a></td>
+                    <td><a href="salvarUsuario?acao=delete&user=${user.id}">Excluir</a></td>
+                  </tr>
+                </c:forEach>
+            </tbody>
+      </table>
+    </div>
+   
   <script type="text/javascript">
       function cancelar() {
     	  document.querySelector("form").action = "salvarUsuario?acao=reset";

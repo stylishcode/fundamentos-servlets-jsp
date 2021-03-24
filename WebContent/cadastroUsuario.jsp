@@ -18,6 +18,12 @@
         <fieldset>
             <legend>Cadastro de usuários</legend>
             
+            <c:if test="${erroCampos.length() > 0}">
+                <p style="position: absolute; left: 390px; bottom: 640px; color: orange">
+                    Por favor, preencher: ${erroCampos}
+                </p>
+            </c:if>
+            
             <h3 style="margin-bottom: 0.35rem; color: orange">${msg}</h3>
             
             <input type="text" name="id" id="id" readonly="readonly" placeholder="Gerado automaticamente" 
@@ -25,43 +31,43 @@
                    
             <label>Nome <span>*</span></label>
             <input type="text" name="nome" id="nome" placeholder="Nome" 
-                   value="${user.nome}" required>
+                   value="${user.nome}" >
                    
             <label>Telefone <span>*</span></label>
             <input type="tel" name="telefone" id="telefone" placeholder="Telefone" 
-                   value="${user.telefone}" required>
+                   value="${user.telefone}" >
         
             <label>Login <span>*</span></label>
             <input type="text" name="login" id="login" placeholder="Informe um login" 
-                   value="${user.login}" required>
+                   value="${user.login}" >
         
             <label>Senha <span>*</span> </label> 
             <input type="password" name="senha" id="senha" placeholder="Digite uma senha" 
-                   value="${user.senha}" required>
+                   value="${user.senha}" >
                    
             <label>IBGE <span>*</span> </label> 
             <input type="text" name="ibge" id="ibge" placeholder="Informe o IBGE" 
-                   value="${user.ibge}" required>
+                   value="${user.ibge}" >
             
             <label>CEP <span>*</span> </label> 
             <input type="text" name="cep" id="cep" placeholder="Informe o CEP" 
-                   value="${user.cep}" required>
+                   value="${user.cep}" >
                    
             <label>Rua <span>*</span> </label> 
             <input type="text" name="rua" id="rua" placeholder="Informe a Rua" 
-                   value="${user.rua}" required>
+                   value="${user.rua}" >
                    
             <label>Bairro <span>*</span> </label> 
             <input type="text" name="bairro" id="bairro" placeholder="Informe o bairro" 
-                   value="${user.bairro}" required>
+                   value="${user.bairro}" >
                    
             <label>Cidade <span>*</span> </label> 
             <input type="text" name="cidade" id="cidade" placeholder="Informe a cidade" 
-                   value="${user.cidade}" required>
+                   value="${user.cidade}" >
             
             <label>Estado <span>*</span> </label> 
             <input type="text" name="estado" id="estado" placeholder="Informe o estado" 
-                   value="${user.estado}" required>     
+                   value="${user.estado}" >     
             
             <div>
                 <button type="submit">Salvar</button>

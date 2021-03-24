@@ -157,6 +157,7 @@ public class UsuarioDao {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
             statement.setLong(2, id);
+            
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {

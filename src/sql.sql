@@ -36,3 +36,26 @@ alter table serialuser
     owner to user_owner;
   
 alter table usuario alter column id set default nextval('serialuser'::regclass);
+
+
+
+-- table produtos
+create table usuario (
+  id bigint primary key,
+  nome character varying(255),
+  quantidade bigint,
+  valor decimal
+);
+
+-- sequence for autoincrement id (there are three commands. Run ony by one)
+create sequence serialproduto
+  increment 1
+  minvalue 1
+  maxvalue 9223372036854775807
+  start 1
+  cache 1;
+  
+alter table serialproduto
+    owner to user_owner;
+  
+alter table produto alter column id set default nextval('serialproduto'::regclass);

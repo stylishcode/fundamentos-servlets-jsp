@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import validation.UsuarioValidation;
 
 @WebServlet("/salvarUsuario")
 public class UsuarioServlet extends HttpServlet {
@@ -19,15 +20,16 @@ public class UsuarioServlet extends HttpServlet {
 
     public UsuarioServlet() {
     }
-    
+
     private void carregarListaUsuarios(HttpServletRequest request, HttpServletResponse response) {
-        try {   
+        try {
             /* Define um redirecionamento de pagina */
             RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
-            /*Define um atributo usuarios que contem a lista de usuários carregada*/
+            /* Define um atributo usuarios que contem a lista de usuários carregada */
             request.setAttribute("usuarios", daoUsuario.listar());
-            /*Redireciona para a página definida*/
+            /* Redireciona para a página definida */
             view.forward(request, response);
+            return;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,8 +62,9 @@ public class UsuarioServlet extends HttpServlet {
                 request.setAttribute("user", usuario);
                 /* Redireciona o usuário para a página especificada */
                 view.forward(request, response);
+                return;
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,39 +108,50 @@ public class UsuarioServlet extends HttpServlet {
         usuario.setBairro(bairro);
         usuario.setCidade(cidade);
         usuario.setEstado(estado);
-        
+
+        StringBuilder validacoesCampos = new UsuarioValidation().validarCampos(usuario);
+
         String msg = null;
         boolean podeInserir = true;
-        
-        if (id == null || id.isEmpty() && !daoUsuario.isExisteLogin(login) && podeInserir) {
-            daoUsuario.salvar(usuario);
+
+        if (validacoesCampos != null) {
+            request.setAttribute("erroCampos", validacoesCampos);
+            request.setAttribute("user", usuario);
+
+        } else {
             
-        } 
-        
-        if (id == null || id.isEmpty() && daoUsuario.isExisteLogin(login)) {
-            msg = "Usuário já existe com o mesmo login";
-            podeInserir = false;
-        }
-        
-        if (id != null && !id.isEmpty() && podeInserir) {
-            if (daoUsuario.isExisteLoginOnUpdate(login, Long.parseLong(id))) {
-                msg = "Login já existe para outro usuário";
-                podeInserir = false;
-            } else {
-                daoUsuario.atualizar(usuario);
+            if (id == null || id.isEmpty() && podeInserir) {
+                if(daoUsuario.isExisteLogin(login)) {
+                    msg = "Usuário já existe com o mesmo login";
+                    podeInserir = false;
+                } else {
+                    daoUsuario.salvar(usuario);
+                }
             }
+            
+            if (id != null && !id.isEmpty() && podeInserir) {        
+                if (daoUsuario.isExisteLoginOnUpdate(login, Long.parseLong(id))) {
+                    msg = "Login já existe para outro usuário";
+                    podeInserir = false;
+                } else {
+                    daoUsuario.atualizar(usuario);
+                }
+            }
+            
         }
         
         if (msg != null) {
             request.setAttribute("msg", msg);
-        }
-
-        /*Mantém os dados do usuários no formulário (recarrega) após algum erro de validação*/
-        if (!podeInserir) { 
+        } 
+        /*
+         * Mantém os dados do usuários no formulário (recarrega) após algum erro de
+         * validação
+         */
+        if (!podeInserir) {
             request.setAttribute("user", usuario);
         }
-        
-       carregarListaUsuarios(request, response);
-    }
 
+        carregarListaUsuarios(request, response);
+        
+    }
 }

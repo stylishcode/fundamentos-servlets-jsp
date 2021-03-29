@@ -15,7 +15,7 @@ public class ProdutoValidation {
         }
         
         if (produto.getValor() == null) {
-            erros.append("Valor, ");
+            erros.append("Valor R$, ");
         }
         
         /*Remove a virgula e espaço do último elemento*/ 
